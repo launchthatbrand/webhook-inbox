@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: webhook-inbox
+  datasource:
+    url: jdbc:postgresql://localhost:5433/webhookinbox
+    username: inbox
+    password: inbox
+  mvc:
+    problemdetails:
+      enabled: true
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  outbound:
+    url: ${APP_OUTBOUND_URL:http://127.0.0.1:9/hooks}
+  dispatch:
+    enabled: true
+    delay-ms: 1000
+    max-attempts: 5
+    backoff-ms: 1000
